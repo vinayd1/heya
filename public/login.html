@@ -25,10 +25,6 @@
         .btn {
             background-color: #A569BD;
         }
-        .submit {
-            position: relative;
-            top: 50px;
-        }
         .btn:hover {
             background-color: #BB8FCE;
         }
@@ -62,17 +58,19 @@
         <div><h6>to continue to heya...</h6></div>
     </div>
     <br><br>
-    <form class="row" method="post" action="/user/login">
-        <div class="input-field col s8 offset-s2">
-            <input id="user_name" type="text" class="validate" name="username">
-            <label for="user_name">User Name</label>
+    <form method="post" action="/user/login">
+        <div class="row">
+            <div class="input-field col s8 offset-s2">
+                <input id="user_name" type="text" class="validate" name="username">
+                <label for="user_name">User Name</label>
+            </div>
+                <br>
+            <div class="input-field col s8 offset-s2">
+                <input id="password" type="password" class="validate" name="password">
+                <label for="password">Password</label>
+            </div>
         </div>
-            <br>
-        <div class="input-field col s8 offset-s2">
-            <input id="password" type="password" class="validate" name="password">
-            <label for="password">Password</label>
-        </div>
-        <div class="center-align submit" style="margin: 10%">
+        <div class="center-align submit" style="margin: 5%">
             <button class="btn waves-effect waves-light" type="submit">Log in
                 <i class="material-icons right">send</i>
             </button></div>

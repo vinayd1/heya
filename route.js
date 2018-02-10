@@ -33,8 +33,8 @@ passport.use(new passportLocal(
                   if (bcrypt.compareSync(password, users[i].password)) {
                      currentUser = users[i];
                      return done(null, users[i].id);
-                 }
-                 else
+                  }
+                  else
                      return done(null, false);
              }
          }

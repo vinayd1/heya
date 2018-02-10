@@ -25,10 +25,6 @@
         .btn {
             background-color: #A569BD;
         }
-        .submit {
-            position: relative;
-            top: 50px;
-        }
         .btn:hover {
             background-color: #BB8FCE;
         }
@@ -62,7 +58,8 @@
         <div><h6>Sign to continue...</h6></div>
     </div>
     <br>
-    <form class="row" method="post" action="/user/signup">
+    <form method="post" action="/user/signup">
+        <div class="row">
         <div class="input-field col s4 offset-s2">
             <input id="fname" type="text" class="validate" name="firstname">
             <label for="fname">First Name</label>
@@ -81,13 +78,15 @@
             <label for="password">Password</label>
         </div>
         <div class="input-field col s8 offset-s2">
-            <input id="cpassword" type="password" class="validate">
+            <input id="cpassword" type="password" class="validate" name="cpassword">
             <label for="cpassword">Confirm Password</label>
         </div>
-        <div class="center-align submit" style="margin: 5%">
+        </div>
+        <div class="center-align submit">
             <button class="btn waves-effect waves-light" type="submit">Sign Up
                 <i class="material-icons right">send</i>
-            </button></div>
+            </button>
+        </div>
     </form>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
