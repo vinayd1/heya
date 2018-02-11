@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserHome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+    html {
+        position: relative;
+        background: url(../images/blur.jpg) no-repeat;
+        background-size: cover;
+        height: 100%;
+        overflow-y: hidden;
+    }
+    .container{
+        position:relative;
+        padding:0 5%;
+        height: 90vh;
+        width: 85%;
+        margin: 3% auto;
+        background-color: white;
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .4);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    #result{
+        width: 95%;
+        max-height: 65%;
+        overflow-y: auto;
+    }
+    .input-field input[type=text]:focus + label {
+        color: #A569BD !important;
+    }
+    .input-field input[type=text]:focus {
+        border-bottom: 1px solid #A569BD !important;
+        box-shadow: 0 1px 0 0 #A569BD !important;
+    }
+    .btn-large {
+        background-color: #A569BD;
+    }
+    .btn-large:hover {
+        background-color: #BB8FCE;
+    }
+</style>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <h2 class="center-align" style="font-family: 'cursive'; color: #9B59B6; font-weight: bolder !important; text-shadow:1px 1px purple;">heya!</h2>
+        <div style="font-weight: bold" class="center-align"><h4>{{firstname}}</h4></div>
+        <div><h6 class="center-align" style="margin: 0">{{username}}</h6></div>
+    </div>
+    <hr>
+    <div id="result"></div>
+    <div id="userChat" style="position:absolute;bottom:0;width: 95%">
+        <div class="row">
+            <div class="col s1">
+                <a href="/"><button class="waves-effect waves-light btn-large" id="dis"><i class="material-icons" style="font-size:30px;">call_end</i></button></a>
+            </div>
+            <div class="input-field col s9">
+                <input type="text" id="inp" class="validate">
+                <label for="inp">User Name</label>
+            </div>
+            <!--<div style="width:2vw"></div>-->
+            <div class="col s2">
+                <button class="waves-effect waves-light btn-large" id="b"><i class="material-icons" style="font-size:30px;">send</i></button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io();
+    let inp = document.getElementById('inp');
+    let btn = document.getElementById('b');
+    let result = document.getElementById('result');
+    let dis = document.getElementById('dis');
+
+    socket.on('recieve', function(data){
+        result.innerHTML += `${data.firstname}: ${data.msg}<br>`;
+    });
+    btn.onclick = function() {
+        socket.emit('send', {firstname: '{{firstname}}', msg: inp.value});
+        result.innerHTML += `You: ${inp.value}<br>`;
+        inp.value = "";
+    }
+    socket.emit('con', '{{firstname}}');
+    socket.on('new_connect', function(data) {
+        result.innerHTML += `<div class="center-align">${data.data} Connected, Total Users: ${data.count}</div>`;
+    });
+    socket.on('discon', function(data){
+        result.innerHTML += `<div class="center-align">Total Users: ${data}</div>`;
+    });
+    dis.onclick = function(){
+        socket.disconnect();
+    }
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+</html>

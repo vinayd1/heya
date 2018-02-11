@@ -4,7 +4,13 @@ const database = require('./database.js');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 const session = require('express-session');
+const hbs = require('hbs');
 const bcrypt = require('bcrypt-nodejs');
+
+
+
+app.set('view engine','hbs');
+app.set('views','views');
 
 route.use(bodyParser.urlencoded({ extended: false }));
 route.use(bodyParser.json());
@@ -28,13 +34,13 @@ passport.use(new passportLocal(
     function(username,password,done){
      database.getAllUsers(function(users){
          if(users)
-         for(var i=0; i<users.length; i++) {
+         for(let i=0; i<users.length; i++) {
              if (username === users[i].username) {
                   if (bcrypt.compareSync(password, users[i].password)) {
                      currentUser = users[i];
                      return done(null, users[i].id);
-                  }
-                  else
+                 }
+                 else
                      return done(null, false);
              }
          }
@@ -54,19 +60,20 @@ passport.deserializeUser(function(id, done) {
 });
 
 route.get('/home', function(req,res){
-    res.send(req.user);
+    res.render('home',req.user);
 });
+
+
 
 route.get('/login', function(req,res){
    res.send(req.session.messages[0]);
 });
 
-
 route.post('/signup', function(req,res){
     let flag = 0;
     database.getAllUsers(function(users){
         if(users)
-        for(var i=0; i<users.length; i++)
+        for(let i=0; i<users.length; i++)
         {
             if(users[i].username === req.body.username)
             {
@@ -81,7 +88,7 @@ route.post('/signup', function(req,res){
             res.write(JSON.stringify(req.body));
             res.end();
         }
-    })
+    });
 });
 
 
