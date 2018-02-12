@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
     html {
-        position: relative;
         background: url(../images/blur.jpg) no-repeat;
         background-size: cover;
         height: 100%;
@@ -16,17 +15,16 @@
     .container{
         position:relative;
         padding:0 5%;
-        height: 90vh;
+        height: 95vh;
         width: 85%;
-        margin: 3% auto;
-        background-color: white;
+        margin: 1% auto;
+        background-color: #fdffd8;
         box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .4);
         overflow-y: auto;
         overflow-x: hidden;
     }
     #result{
-        width: 95%;
-        max-height: 65%;
+        max-height: 60%;
         overflow-y: auto;
     }
     .input-field input[type=text]:focus + label {
@@ -42,6 +40,54 @@
     .btn-large:hover {
         background-color: #BB8FCE;
     }
+    .bubble{
+        background-color: #F2F2F2;
+        border-radius: 5px;
+        box-shadow: 0 0 6px #B2B2B2;
+        display: inline-block;
+        padding: 10px 18px;
+        position: relative;
+        vertical-align: top;
+    }
+
+    .bubble::before {
+        background-color: #F2F2F2;
+        content: "\00a0";
+        display: block;
+        height: 16px;
+        position: absolute;
+        top: 11px;
+        transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+        width:  20px;
+    }
+
+    .you {
+        background-color: #e6e6ed;
+        float: left;
+        margin: 5px 45px 5px 20px;
+    }
+
+    .you::before {
+        background-color: #e6e6ed;
+        box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+        left: -9px;
+    }
+
+    .me {
+        background-color: #edc98f;
+        float: right;
+        margin: 5px 20px 5px 45px;
+    }
+
+    .me::before {
+        background-color: #edc98f;
+        box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+        right: -9px;
+    }
 </style>
 
 </head>
@@ -49,8 +95,8 @@
 <body>
 <div class="container">
     <div class="row">
-        <h2 class="center-align" style="font-family: 'cursive'; color: #9B59B6; font-weight: bolder !important; text-shadow:1px 1px purple;">heya!</h2>
-        <div style="font-weight: bold" class="center-align"><h4>{{firstname}}</h4></div>
+        <h2 class="center-align" style="font-family: 'cursive'; color: #9B59B6; font-weight: bolder !important; text-shadow:1px 1px purple;margin: 1rem 0 1rem 0">heya!</h2>
+        <div style="font-weight: bold; margin: 0" class="center-align"><h4 style="margin: 0">{{firstname}}</h4></div>
         <div><h6 class="center-align" style="margin: 0">{{username}}</h6></div>
     </div>
     <hr>
@@ -64,7 +110,6 @@
                 <input type="text" id="inp" class="validate">
                 <label for="inp">User Name</label>
             </div>
-            <!--<div style="width:2vw"></div>-->
             <div class="col s2">
                 <button class="waves-effect waves-light btn-large" id="b"><i class="material-icons" style="font-size:30px;">send</i></button>
             </div>
@@ -81,21 +126,29 @@
     let dis = document.getElementById('dis');
 
     socket.on('recieve', function(data){
-        result.innerHTML += `${data.firstname}: ${data.msg}<br>`;
+        result.innerHTML += `<div class="bubble you"><span style="color: blue; font-weight: bold">${data.firstname}:</span> ${data.msg}</div>`;
     });
-    btn.onclick = function() {
-        socket.emit('send', {firstname: '{{firstname}}', msg: inp.value});
-        result.innerHTML += `You: ${inp.value}<br>`;
-        inp.value = "";
+
+    inp.onkeydown = function (ev) {
+        if(ev.keyCode === 13)
+            btn.onclick();
     }
+    btn.onclick = function() {
+        if(inp.value === '')
+            return;
+        socket.emit('send', {firstname: '{{firstname}}', msg: inp.value});
+        result.innerHTML += `<div class="bubble me"><span style="color: red; font-weight: bold"> You:</span> ${inp.value}</div>`;
+        inp.value = "";
+    };
     socket.emit('con', '{{firstname}}');
     socket.on('new_connect', function(data) {
         result.innerHTML += `<div class="center-align">${data.data} Connected, Total Users: ${data.count}</div>`;
     });
     socket.on('discon', function(data){
-        result.innerHTML += `<div class="center-align">Total Users: ${data}</div>`;
+        result.innerHTML += `<div class="center-align"> Total Users: ${data}</div>`;
     });
     dis.onclick = function(){
+
         socket.disconnect();
     }
 </script>
