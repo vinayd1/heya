@@ -6,7 +6,7 @@ const passportLocal = require('passport-local').Strategy;
 const session = require('express-session');
 const hbs = require('hbs');
 const bcrypt = require('bcrypt-nodejs');
-
+const path = require('path');
 
 
 app.set('view engine','hbs');
@@ -66,7 +66,7 @@ route.get('/home', function(req,res){
 
 
 route.get('/login', function(req,res){
-   res.send(req.session.messages[0]);
+    res.render('login', {red: 255, green: 0, msg: 'Invalid Username or Password'});
 });
 
 route.post('/signup', function(req,res){
@@ -81,12 +81,10 @@ route.post('/signup', function(req,res){
                 break;
             }
         }
-        if(flag===1)res.send("Username Already exists");
+        if(flag===1)res.render('signup.hbs');
         else{
             database.addUser(req.body);
-            res.write("Successfully SignedUp\n");
-            res.write(JSON.stringify(req.body));
-            res.end();
+            res.render('login', {red: 0, green: 255, msg: 'Successfully Signed up Login to Continue'})
         }
     });
 });

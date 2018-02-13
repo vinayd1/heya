@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log into heya</title>
+    <title>Signup</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
@@ -14,9 +14,9 @@
             overflow-y: hidden;
         }
         .container{
-            height: 80vh;
+            height: 95vh;
             width: 50%;
-            margin: 5% auto;
+            margin: 1% auto;
             background-color: white;
             box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .4);
             overflow-y: auto;
@@ -54,30 +54,52 @@
 <div class="container">
     <div class="center-align">
         <h2 style="font-family: 'cursive'; color: #9B59B6">heya!</h2>
-        <div style="font-weight: bold"><h4>Sign in</h4></div>
-        <div><h6>to continue to heya...</h6></div>
+        <div style="font-weight: bold"><h4>Welcome to heya</h4></div>
+        <div><h6>Sign to continue...</h6></div>
     </div>
-    <br><br>
-    <form method="post" action="/user/login">
+    <br>
+    <form method="post" action="/user/signup">
         <div class="row">
+            <div id="err" style="color: rgba(255,0, 0,0.6);text-align: center" >Username Already exists</div>
+            <div class="input-field col s4 offset-s2">
+                <input id="fname" type="text" class="validate" name="firstname">
+                <label for="fname">First Name</label>
+            </div>
+            <div class="input-field col s4">
+                <input id="lname" type="text" class="validate" name="lastname">
+                <label for="lname">Last Name</label>
+            </div>
             <div class="input-field col s8 offset-s2">
                 <input id="user_name" type="text" class="validate" name="username">
-                <label for="user_name">User Name</label>
+                <label for="user_name">Choose User Name</label>
             </div>
             <br>
             <div class="input-field col s8 offset-s2">
                 <input id="password" type="password" class="validate" name="password">
                 <label for="password">Password</label>
             </div>
+            <div class="input-field col s8 offset-s2">
+                <input id="cpassword" type="password" class="validate" name="cpassword">
+                <label for="cpassword">Confirm Password</label>
+            </div>
         </div>
-        <div class="center-align submit" style="margin: 6%">
-            <button class="btn waves-effect waves-light" type="submit">Log in
+        <div class="center-align submit">
+            <button class="btn waves-effect waves-light" type="submit">Sign Up
                 <i class="material-icons right">send</i>
-            </button></div>
+            </button>
+        </div>
     </form>
-
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    let inp = document.getElementById('fname');
+    let err = document.getElementById('err');
+
+    inp.onkeydown = function () {
+        err.innerHTML = '';
+    };
+
+</script>
 </body>
 </html>

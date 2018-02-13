@@ -60,6 +60,7 @@
     <br><br>
     <form method="post" action="/user/login">
         <div class="row">
+            <div id="err" style="color: rgba({{red}},{{green}}, 0,0.6);text-align: center" >{{msg}}</div>
             <div class="input-field col s8 offset-s2">
                 <input id="user_name" type="text" class="validate" name="username">
                 <label for="user_name">User Name</label>
@@ -79,5 +80,13 @@
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    let inp = document.getElementById('user_name');
+    let err = document.getElementById('err');
+
+    inp.onkeydown = function () {
+        err.innerHTML = '';
+    }
+</script>
 </body>
 </html>

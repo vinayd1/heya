@@ -8,7 +8,7 @@
     <style>
         html {
             position: relative;
-            background: url(images/bck.jpg) no-repeat;
+            background: url(../images/bck.jpg) no-repeat;
             background-size: cover;
             height: 100%;
             overflow-y: hidden;
@@ -83,7 +83,7 @@
         </div>
         </div>
         <div class="center-align submit">
-            <button class="btn waves-effect waves-light" type="submit">Sign Up
+            <button class="btn waves-effect waves-light" id="subBtn" type="submit">Sign Up
                 <i class="material-icons right">send</i>
             </button>
         </div>
@@ -91,5 +91,18 @@
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+
+    let pass = document.getElementById('password');
+    let cpass = document.getElementById('cpassword');
+
+    (document.getElementById('subBtn')).onclick = function() {
+        if (pass !== cpass) {
+
+        }
+    }
+
+</script>
 </body>
 </html>

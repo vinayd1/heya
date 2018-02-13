@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UserHome</title>
+    <title>{{firstname}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
@@ -68,8 +68,12 @@
         float: left;
         margin: 5px 45px 5px 20px;
     }
+    .point:hover {
+        cursor:pointer;
+        opacity:0.7;
+    }
 
-    .you::before {
+    .you:before {
         background-color: #e6e6ed;
         box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
         left: -9px;
@@ -80,7 +84,6 @@
         float: right;
         margin: 5px 20px 5px 45px;
     }
-
     .me::before {
         background-color: #edc98f;
         box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
@@ -124,7 +127,7 @@
     let dis = document.getElementById('dis');
 
     socket.on('recieve', function(data){
-        result.innerHTML += `<div class="bubble you"><span style="color: blue; font-weight: bold">${data.firstname}:</span> ${data.msg}</div>`;
+        result.innerHTML += `<div class=" point bubble you"><span style="color: blue; font-weight: bold">${data.firstname}:</span> ${data.msg}</div><br><br><br>`;
     });
 
     inp.onkeydown = function (ev) {
@@ -135,7 +138,7 @@
         if(inp.value === '')
             return;
         socket.emit('send', {firstname: '{{firstname}}', msg: inp.value});
-        result.innerHTML += `<div class="bubble me"><span style="color: red; font-weight: bold"> You:</span> ${inp.value}</div>`;
+        result.innerHTML += `<div class="point bubble me"><span style="color: red; font-weight: bold"> You:</span> ${inp.value}</div><br><br><br>`;
         inp.value = "";
     };
     socket.emit('con', '{{firstname}}');
