@@ -6,7 +6,7 @@ const database = require('./database');
 const server = require('http').Server(app);
 const socket = require('socket.io');
 const io = socket(server);
-let port = 7560;
+let port = process.env.PORT || 7560;
 
 app.use('/', express.static('public'));
 
