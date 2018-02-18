@@ -14,12 +14,10 @@ let connection = sql.createConnection({
 
 function connect(){
     connection.connect();
-    console.log("MysqlConnected");
 }
 
 function getAllUsers(users){
     connection.query('Select * from UserData', function(err,data){
-
         users(data);
     });
 }
@@ -40,7 +38,7 @@ function addUser(details){
                                 Insert into UserData(firstname,lastname,username,password) values('${details.firstname}','${details.lastname}','${details.username}','${hash}');`, function(err,data){
                 if(err) throw err;
                 console.log(hash);
-    })
+    });
 }
 
 module.exports = {

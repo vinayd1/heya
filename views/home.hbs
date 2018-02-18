@@ -166,7 +166,6 @@
             <div class="col s1">
                 <a href="/"><button class="waves-effect waves-light btn-large" id="dis" style="width: 100%"><i class="material-icons" style="font-size:30px;">call_end</i></button></a>
             </div>
-            <!--<div class="col s1"></div>-->
             <div class="input-field col s8">
                 <input type="text" id="inp" class="validate">
                 <label for="inp" id="lab">Enter Text</label>
@@ -212,9 +211,12 @@
         result.innerHTML += `<div class="center-align">${data.data} Connected, Total Connections: ${data.count}</div>`;
     });
     socket.on('disconnected-user', function(data){
-        console.log("disconnected");
         result.innerHTML += `<div class="center-align">1 User Disconnected, Total Connections: ${data.count}</div>`;
     });
+    socket.emit('total');
+    socket.on('total', function (data) {
+        result.innerHTML += `<div class="center-align">Total Connections: ${data.count}</div>`;
+    })
     dis.onclick = function(){
         socket.disconnect('{{firstname}}');
     };
