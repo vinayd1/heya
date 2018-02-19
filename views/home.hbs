@@ -222,9 +222,11 @@
     socket.emit('con', '{{firstname}}');
     socket.on('new_connect', function(data) {
         result.innerHTML += `<div class="center-align">${data.data} Connected, Total Connections: ${data.count}</div>`;
+        result.scrollTop = result.scrollHeight;
     });
     socket.on('disconnected-user', function(data){
         result.innerHTML += `<div class="center-align">1 User Disconnected, Total Connections: ${data.count}</div>`;
+        result.scrollTop = result.scrollHeight;
     });
     socket.emit('total');
     socket.on('total', function (data) {
