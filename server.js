@@ -1,4 +1,3 @@
-
 const express = require('express');
 global.app = express();
 const router = require('./route.js');
@@ -7,6 +6,11 @@ const server = require('http').Server(app);
 const socket = require('socket.io');
 const io = socket(server);
 let port = process.env.PORT || 7560;
+
+process.on('uncaughtException', function (err) {
+    console.log("err: " + err);
+    console.log("Node Still Running...");
+});
 
 app.use('/', express.static('public'));
 

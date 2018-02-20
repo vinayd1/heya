@@ -36,7 +36,7 @@ route.post('/login', passport.authenticate('local',
 let currentUser;
 
 function checkUser(req,res){
-    if(!req.user)
+    if(!req.user || req.user === false)
         res.redirect('../login.html');
 }
 
@@ -73,10 +73,8 @@ route.get('/home', function(req,res){
     checkUser(req,res);
     let user = req.user;
     req.logOut();
-    res.render('home',user);
+    res.render('home', user);
 });
-
-
 
 route.get('/login', function(req,res){
     res.render('login', {color: "red", msg: 'Invalid Username or Password'});
