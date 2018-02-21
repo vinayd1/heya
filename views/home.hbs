@@ -263,6 +263,13 @@
         document.getElementById('lab').classList.add('active');
         inp.value += element.innerHTML;
     }
+
+    window.addEventListener("beforeunload", function (e) {
+        var confirmationMessage = "Do you want to disconnect";
+
+        e.returnValue = confirmationMessage;     
+        return confirmationMessage;
+    });
 </script>
 
 </body>
