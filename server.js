@@ -7,7 +7,7 @@ const socket = require('socket.io');
 const io = socket(server);
 let port = process.env.PORT || 7560;
 
-process.on('uncaughtException', function (err) {});
+process.on('uncaughtException');
 
 app.use('/', express.static('public'));
 
