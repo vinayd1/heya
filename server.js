@@ -9,6 +9,7 @@ let port = process.env.PORT || 7560;
 
 process.on('uncaughtException');
 
+
 app.use('/', express.static('public'));
 
 let count = 0;
