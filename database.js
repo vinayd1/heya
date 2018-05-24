@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt-nodejs');
 
 
 let connection = sql.createConnection({
-    host: 'sql12.freemysqlhosting.net',
-    user: 'sql12230698',
-    password: 'dZBq4aAfCe',
-    database: 'sql12230698',
+    host: 'sql12.freemysqlhosting.net	',
+    user: 'sql12239646',
+    password: 'YjkmJ51MRI',
+    database: 'sql12239646',
     multipleStatements:true
 });
 
