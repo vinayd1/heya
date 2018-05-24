@@ -97,7 +97,6 @@ route.post('/signup', function(req,res){
                 }
             if (flag === 1) res.render('signup',{msgExists:"Username already exists"});
             else {
-                console.log("abc");
                 database.addUser(req.body);
                 res.render('login', {color: "green", msg: 'Successfully Signed up. Login to Continue'})
             }
